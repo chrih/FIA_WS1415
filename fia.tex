@@ -326,7 +326,7 @@
 \begin{itemize}
  \item subjective QoE 
  \begin{itemize}
-  \item ask or observe the user (use questionaires, rating ?????????, annotations)
+  \item ask or observe the user (use questionaires, rating scales, annotations)
  \end{itemize}
  \item mean opinion score 
  \begin{itemize}
@@ -336,6 +336,133 @@
   \item use discrete scales and an odd number of steps
  \end{itemize}
 \end{itemize}
-
+\item subjective tests are often expensive and time consuming
+\begin{itemize}
+ \item objective algorithms are desired (MOS predictors)
+ \begin{itemize}
+  \item MSE (bad) $\Rightarrow$ doesn't care about reordering
+  \item PSNR $\Rightarrow$ correlation of c.a. 80 \% to subjective studies (but sometimes much worse)
+  \item maximum pixel deviation
+  \item multiscale structural similarity (MSSIM) $\Rightarrow$ very good
+ \end{itemize}
+\end{itemize}
+\item region of interest $\Rightarrow$ salient vs. non-salient regions (e.g. football)
+\end{itemize}
+\chapter{data communication and transport protocol}
+\begin{itemize}
+ \item connection-oriented:
+ \begin{itemize}
+  \item setting up a call and release the call afterwards (TCP)
+ \end{itemize}
+ \item connection-less:
+ \begin{itemize}
+  \item packet switching without call establishment
+ \end{itemize}
+\end{itemize}
+\section{single path transport protocol}
+\begin{itemize}
+ \item UDP and UDP-lite
+ \begin{itemize}
+  \item SRC part $\|$ DST part $\|$ length $\|$ checksum $\|$ data 
+  \begin{itemize}
+   \item suiteable for real-time applications (nondelayed transmission)
+   \item works well for broadcasting (e.g. service discovery, video broadcast)
+  \end{itemize}
+  \item UDP-like replaces length with checksum coverage
+  \item UDP-like headers must be protected by the checksum
+ \end{itemize}
+ \item TCP basics
+ \begin{itemize}
+  \item SYN and ACK flags
+  \item sequence numbers: number of packet ascending
+  \item acknowledgement number: if ACK is set, this is the next sequence the reciever expects
+  \item connection establishment (3-way-handshake)
+  \begin{itemize}
+   \item client sends SYN with random sequence number $A$
+   \item server responds ACK with acknowledgement number $A+1$ and random sequence number $B$
+   \item client sends ACK with acknowledgement number $B+1$ and sequence number $A+1$
+   \item result: full duplex connection
+  \end{itemize}
+  \item key features of TCP
+  \begin{itemize}
+   \item orders data transfer
+   \item retransmission
+   \item error free data transfer
+   \item flow control
+   \item congestion control
+  \end{itemize}
+  \item TCP measures round-trip-time (RTT) and calculates expected RTT for future packets
+ \end{itemize}
+ \item compound TCP
+ \begin{itemize}
+  \item combines delay-based and loss-based congestion control
+  \item higher throughput than normal TCP at high RTT
+ \end{itemize}
+ \item cubic TCP
+ \begin{itemize}
+  \item \includegraphics[width=.8\linewidth]{cubictcp.jpg}
+  \item fair for low RTT, very aggressive for high RTT
+ \end{itemize}
+ \item RED -- random early detection
+ \begin{itemize}
+  \item schedulers for congestion avoidance
+  \item idea: monitor average queue size and drop packets based on statistical probabilities
+  \item problems: has strong impact on TCP (retransmission)
+ \end{itemize}
+ \item ECN -- explicit congestion notification
+ \begin{itemize}
+  \item allows end-to-end notifications of network congestion without dropping packets
+  \item ECN-routers may set a mark in the TCP headers to signal impending congestion to the reciever. the reciever echos a signal to the sender which then can reduce transmission rates
+  \item can reduce the number of dropped packets
+  \item may reduce performance on highly congested networks
+ \end{itemize}
+ \item DCCP -- congestion control without reliability
+ \begin{itemize}
+  \item TCP: long living flows to guarantee fairness
+  \item UDP: short living flows and multicast applications
+  \item problem: UDP is used for long-living flows with live constraints: streaming, VoIP, online-gaming $\Rightarrow$ no congestion controll using UDP may result in congestion collapse of the internet
+  \item requirements: 
+  \begin{itemize}
+   \item choice of congestion controll mechanisms
+   \item low per-packet overhead
+   \item ECN support
+   \item middlebox traversal (NAT/Firewall)
+  \end{itemize}
+  \item congestion controll mechanisms
+  \begin{itemize}
+   \item TCP-like: congestion controll
+   \item TCP-friendly: congestion controll
+  \end{itemize}
+  \item SCTP -- stream controll transmission protocol
+  \begin{itemize}
+   \item properties:
+   \begin{itemize}
+    \item security: 4-way-handshake
+    \item resilience: multi-homing, crc32--checksum
+    \item practical features: 
+    \begin{itemize}
+     \item IPv4 and IPv6 simultaneously
+     \item multi-streaming
+     \item message-oriental
+    \end{itemize}
+    \item support extensions
+   \end{itemize}
+   \item multi-homing
+   \begin{itemize}
+    \item SCTP associates two nodes (connection)
+    \item if primary path between nodes breaks connection switches to another path
+   \end{itemize}
+   \item multi-streaming (vgl. script 3.49)
+ \end{itemize}
+ \end{itemize}
+ \section{multi-path transport protocols}
+ \begin{itemize}
+  \item multi-path TCP: split data transmission via multiple paths
+  \begin{itemize}
+   \item enhances reliability and flexibility
+   \item allows balancing of data transmission via links with different limitations
+   \item common problem: out-of-order arrival
+  \end{itemize}
+ \end{itemize}
 \end{itemize}
 \end{document}
