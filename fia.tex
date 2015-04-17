@@ -196,7 +196,7 @@
  \begin{itemize}
   \item pixel wise change detector
   \item block wise change detector
-  \item comparision between current and previous frame
+  \item comparison between current and previous frame
   \begin{itemize}
    \item substract previous frame from current one
    \item convert to absolute value
@@ -227,17 +227,115 @@
    \item 2D logarithmic search
    \item diamond search
   \end{itemize}
-  \item grouping of elements
-  \begin{itemize}
-   \item 
-  \end{itemize}
-
-
  \end{itemize}
-
-
+\item grouping of elements
+  \begin{itemize}
+   \item sequence $\rightarrow$ frame $\rightarrow$ slice $\rightarrow$ macroblock $\rightarrow$ block $\rightarrow$ pixel
+  \end{itemize}
+ \item different frame types 
+ \begin{itemize}
+  \item I-frame: intra-coded-frame: independent of other frames 
+  \item P-frame: predictively coded frame: depends on previous frame 
+  \item B-frame: bidirectionally predicted frame: depends on previous and subsequent frames 
+ \end{itemize}
+ \item scalable video encoding -- H.264/SVC
+ \begin{itemize}
+  \item different frame rates
+  \item different resolutions
+  \item variable image quality 
+  \item layered video codec (LVC)
+  \begin{itemize}
+   \item base layer is encoded in H.264/SVC
+   \item enhancement layers allow refinement of base quality 
+   \item different combinations of temporal, spatial and quality refinement is possible
+   \\ TODO: Bild einfuegen
+   \item refinement is represented by 3D cube of cubes 
+  \end{itemize}
+ \item temporal scalability: adding B-frames to the base layer 
+ \item spatial scalability: 3 mechanisms
+ \begin{itemize}
+  \item interlayer prediction 
+  \item residual prediction
+  \item motion prediction 
+ \end{itemize}
+ \item quality scalability
+ \begin{itemize}
+  \item interlayer prediction (like in spatial scaling)
+  \item up sampling
+  \item different quantization parameters
+ \end{itemize}
+ \item idea is to adept the video quality to the available bandwidth by removing or adding enhancement layers 
+ \end{itemize}
+\item network abstraction layer (NAL)
+\begin{itemize}
+ \item frames are packaged in NAL units 
+ \begin{itemize}
+  \item payload of 1 package is one layer of one frame 
+  \item layers are separated into different streams
+  \item MANE (media aware network element)
+  \begin{itemize}
+   \item decides package forwarding
+   \item separate layers on separate flows (???) allow adapted forwarding 
+  \end{itemize}
+ \end{itemize}
+\end{itemize}
+\item use of LVC and NAL
+\begin{itemize}
+ \item adaption in case of device or network limitations 
+ \item reduce storage size by removing enhancement layers 
+ \item video broadcasting: base layer free + payed enhancement
+\end{itemize}
+\item multi description coding 
+\begin{itemize}
+ \item n frames/s using 1 description 
+ \item 2n frames/s using 2 description
+ \item 2 alternatives 
+ \begin{enumerate}
+  \item independent description: robust + inefficient 
+  \item $\rightarrow$ less robust + more efficient 
+ \end{enumerate}
+ \item robust against package loss 
+\end{itemize}
+\item comparison of different video codings
+\begin{itemize}
+ \item layered $>$ MDC2 $>$ MDC1 
+ \item non variable coding is most efficient but not adaptive to changes in network limit or device limitations
+\end{itemize}
 \end{itemize}
 
+\section{Estimating quality of media applications}
+\begin{itemize}
+ \item what is QoE? 
+ \begin{itemize}
+  \item the overall acceptability of an application or service as perceived subjectively by the end user
+  \item definition is still evolving
+  \item closely related to QoS
+  \item QoE is usually a subjective value 
+  \item assessed by asking or observing users 
+ \end{itemize}
+ \begin{itemize}
+ \item related values: 
+ \begin{itemize}
+  \item quality of presentation, quality of delivery 
+  \item hourglass model matches QoX with layers of the ISO/OSI model 
+  \item QoS $\rightarrow$ QoD $\rightarrow$ QoP $\rightarrow$ QoE 
+ \end{itemize}
+ \item often characterized with MOS (mean opinion score)
+\end{itemize}
+\item QoE assessment methods and tools 
+\begin{itemize}
+ \item subjective QoE 
+ \begin{itemize}
+  \item ask or observe the user (use questionaires, rating ?????????, annotations)
+ \end{itemize}
+ \item mean opinion score 
+ \begin{itemize}
+  \item widely used (politics, marketing, ...)
+  \item the likely level of satisfaction of a service or product as appreciated by an average user
+  \item average might be resulting by two extremes 
+  \item use discrete scales and an odd number of steps
+ \end{itemize}
+\end{itemize}
 
-
+\end{itemize}
 \end{document}

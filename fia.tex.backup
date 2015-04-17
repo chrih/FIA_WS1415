@@ -220,9 +220,66 @@
   \item partitioning of frame into nonoverlapping equally spaced and fixed size rectangular blocks
   \item smaller block size $\Rightarrow$ better approximation but higher computational complexity
   \item $16 \times 16 $ blocks used in MPEG-1 and -2
+  \item calculate best displacement vector for each block
+  \item search strategies:
+  \begin{itemize}
+   \item full search
+   \item 2D logarithmic search
+   \item diamond search
+  \end{itemize}
  \end{itemize}
-
-
+\item grouping of elements
+  \begin{itemize}
+   \item sequence $\rightarrow$ frame $\rightarrow$ slice $\rightarrow$ macroblock $\rightarrow$ block $\rightarrow$ pixel
+  \end{itemize}
+ \item different frame types 
+ \begin{itemize}
+  \item I-frame: intra-coded-frame: independent of other frames 
+  \item P-frame: predictively coded frame: depends on previous frame 
+  \item B-frame: bidirectionally predicted frame: depends on previous and subsequent frames 
+ \end{itemize}
+ \item scalable video encoding -- H.264/SVC
+ \begin{itemize}
+  \item different frame rates
+  \item different resolutions
+  \item variable image quality 
+  \item layered video codec (LVC)
+  \begin{itemize}
+   \item base layer is encoded in H.264/SVC
+   \item enhancement layers allow refinement of base quality 
+   \item different combinations of temporal, spatial and quality refinement is possible
+   \\ TODO: Bild einfuegen
+   \item refinement is represented by 3D cube of cubes 
+  \end{itemize}
+ \item temporal scalability: adding B-frames to the base layer 
+ \item spatial scalability: 3 mechanisms
+ \begin{itemize}
+  \item interlayer prediction 
+  \item residual prediction
+  \item motion prediction 
+ \end{itemize}
+ \item quality scalability
+ \begin{itemize}
+  \item interlayer prediction (like in spatial scaling)
+  \item up sampling
+  \item different quantization parameters
+ \end{itemize}
+ \item idea is to adept the video quality to the available bandwidth by removing or adding enhancement layers 
+ \end{itemize}
+\item network abstraction layer (NAL)
+\begin{itemize}
+ \item frames are packaged in NAL units 
+ \begin{itemize}
+  \item payload of 1 package is one layer of one frame 
+  \item layers are separated into different streams
+  \item MANE (media aware network element)
+  \begin{itemize}
+   \item decides package forwarding
+   \item separate layers on separate flows (???) allow adapted forwarding 
+  \end{itemize}
+ \end{itemize}
+\end{itemize}
+\item use 
 \end{itemize}
 
 
