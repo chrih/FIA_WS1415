@@ -207,7 +207,21 @@
  \item motion compensated coding 
  \begin{itemize}
   \item changes between frames due to moving objects $\Rightarrow$ estimation of motion vectors
+  \item prediction and original frame may differ significantly
+  \begin{itemize}
+   \item solution: compute and transmit prediction error additionally
+   \item higher coding efficiency but also higher computational complexity
+  \end{itemize}
+  \item three-stage-coding:
+  \[ \text{Motion Analysis} \Rightarrow \text{Prediction and differentiation} \Rightarrow \text{Encoding} \]
  \end{itemize}
+ \item block matching
+ \begin{itemize}
+  \item partitioning of frame into nonoverlapping equally spaced and fixed size rectangular blocks
+  \item smaller block size $\Rightarrow$ better approximation but higher computational complexity
+  \item $16 \times 16 $ blocks used in MPEG-1 and -2
+ \end{itemize}
+
 
 \end{itemize}
 
