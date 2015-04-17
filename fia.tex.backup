@@ -146,7 +146,71 @@
  \item 1 is more expensive while 2-4 is cheaper to encode 
  \item reordering required to provide ``typical'' representation
 \end{itemize}
+ \item entropy -- quantifying the required bitrate
+ \begin{itemize}
+  \item entropy $H_x$ represents the mean number of bits per pixel that are required to encode the image 
+  \item $H_x = \sum\limits_{i=0}^{M-1} p_i-log_2\left(\frac{1}{p_i}\right)$ where $p_i = \frac{\text{pixel in bin i}}{N}$ where N is the number of pixels
+  \item estimated number of bits needed is $H_x\cdot N$
+ \end{itemize}
+ \item the Karkunen-Loeve transform (KLT)
+ \begin{itemize}
+  \item is optimal for minimizing bitrate
+  \item not or seldom used in practice $\Rightarrow$ slow and complex
+ \end{itemize}
+ \item the discrete cosine transformation (DCT)
+ \begin{itemize}
+  \item seems to put most energy on a small number of values
+  \item linear transformation
+  \item each real world image can be represented by a combination of the DCT bases
+  \item DCT bases fit better to typical images than FFT or DST
+  \item first coefficient of DCT is mean of values being transformed and represents average tone of the block. subsequent blocks add further detail
+  \item JPEG: $8\times 8$ DCT (empirically found to be good)
+ \end{itemize}
+ \item need for wavelets
+ \begin{itemize}
+  \item signals are available in time-domain but processing frequency information is much more easy
+  \item transformations (e.g. FFT) translate time-domain signals into frequency domains
+  \begin{itemize}
+   \item useful for stationary signals where all frequencies are present at all times
+   \item not useful for instationary signals: both information required
+   \item solution: short term transformation---transformation of small fixed timewindows (similar to blocks of images)
+  \end{itemize}
+  \item wavelet analysis uses different sized windows
+  \begin{itemize}
+   \item high frequency parts $\Rightarrow$ small windows $\Rightarrow$ good time resolution
+   \item low frequency parts $\Rightarrow$ big windows $\Rightarrow$ good frequency resolution
+  \end{itemize}
+ \end{itemize}
+\end{itemize}
+\section{JPEG compression}
+\begin{itemize}
+ \item joint photographic experts groups
+ \item \includegraphics[width=.8\linewidth]{jpeg.jpg}
+\end{itemize}
+\section{digital video}
+\begin{itemize}
+ \item high corellation between successive frames
+ \item interframe differential pulse code modulation ($\Rightarrow$ vgl. skript skizze)
+ \item frame replenishment $\Rightarrow$ pixels are only transmitted if a specified threshold is exceeded, otherwise nothing is transmitted
+ \item change detection
+ \begin{itemize}
+  \item pixel wise change detector
+  \item block wise change detector
+  \item comparision between current and previous frame
+  \begin{itemize}
+   \item substract previous frame from current one
+   \item convert to absolute value
+   \item generate $3\times 3$ averages
+   \item check for threshold
+  \end{itemize}
+ \end{itemize}
+ \item motion compensated coding 
+ \begin{itemize}
+  \item changes between frames due to moving objects $\Rightarrow$ estimation of motion vectors
+ \end{itemize}
 
 \end{itemize}
+
+
 
 \end{document}
